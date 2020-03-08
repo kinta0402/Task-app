@@ -27,4 +27,4 @@
   </tbody>
 </table>
 <%= link_to "編集", edit_user_task_path(@user, @task), class: "btn btn-md btn-success" %>
-<%= link_to "削除", "#", class: "btn btn-md btn-danger" %>
+<%= link_to "削除", user_task_path(@user, @task), method: :delete, class: "btn btn-md btn-danger" %>
