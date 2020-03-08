@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
   before_action :set_user
+  before_action :set_task, only: %i(edit update)
 
   def index
-    @tasks = Task.all
+    @tasks = @user.tasks
   end
   
   def new
@@ -19,6 +20,15 @@ class TasksController < ApplicationController
     end
   end
   
+  def edit
+  end
+  
+  def update
+    @task.update_attributes(task_params)
+    flash[:success] = "タスクを更新しました。"
+    redirect_to user_tasks_url @user
+  end
+  
   private
   
     def set_user
@@ -27,5 +37,9 @@ class TasksController < ApplicationController
     
     def task_params
       params.require(:task).permit(:name, :description)
+    end
+    
+    def set_task
+      @task = @user.tasks.find_by(id: params[:id])
     end
 end
