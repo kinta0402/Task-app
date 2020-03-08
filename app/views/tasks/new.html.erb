@@ -2,6 +2,9 @@
 
 <h1>タスク新規作成</h1>
 
+<%= render 'shared/task_error_messages' %>
+
+</div>
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
     <%= form_with(model: @task, url: user_tasks_path(@user), local: true) do |f| %>
