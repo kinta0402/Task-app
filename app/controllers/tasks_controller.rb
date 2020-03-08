@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_user
-  before_action :set_task, only: %i(edit update)
+  before_action :set_task, only: %i(edit update show)
 
   def index
     @tasks = @user.tasks
@@ -27,6 +27,9 @@ class TasksController < ApplicationController
     @task.update_attributes(task_params)
     flash[:success] = "タスクを更新しました。"
     redirect_to user_tasks_url @user
+  end
+  
+  def show
   end
   
   private
