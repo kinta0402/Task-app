@@ -9,6 +9,7 @@
       <thead>
         <tr>
           <th>名前</th>
+          <th></th>
         </tr>
       </thead>
       
@@ -17,6 +18,9 @@
         <tr>
           <td>
             <%= link_to user.name, user %>
+          </td>
+          <td>
+            <%= link_to "削除", user_path(user), method: :delete, class: "btn btn-danger" %>
           </td>
         </tr>
         <% end %>
