@@ -19,9 +19,9 @@
             <%= link_to user.name, user %>
           </td>
           <td>
-            <% unless user.admin? %>
+            <% if current_user.admin? && !current_user?(user) %>
               <%= link_to "削除", user, method: :delete,
-                  data: { confirm: "削除してよろしいですか？" },
+                  data: { confirm: "#{user.name}のデータを削除してよろしいですか？" },
                   class: "btn btn-danger" %>
             <% end %>             
           </td>

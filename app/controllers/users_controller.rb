@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
-  before_action :logged_in_user, only: [:index, :show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
+  before_action :admin_user, only: [:index, :destroy]
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_or_correct_user, only: [:show]
+
   
   def show
   end
@@ -38,9 +41,8 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
-    flash[:success] = "ユーザーを削除しました。"
+    flash[:success] = "#{@user.name}のデータを削除しました。"
     redirect_to users_path
   end
   
@@ -56,16 +58,8 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
     
-    # ログイン済みのユーザーか確認します。
-    def logged_in_user
-      unless logged_in?
-       flash[:danger] = "ログインしてください"
-       redirect_to login_url
-      end
-    end
-    
-    #アクセスしたユーザーが現在ログインしているユーザーか確認します。
-    def correct_user
-      redirect_to(root_url) unless current_user?(@user)
+    #システム管理権限所有かどうか判定します。
+    def admin_user
+      redirect_to root_url unless current_user.admin?
     end
 end

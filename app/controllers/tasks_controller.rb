@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_user
   before_action :set_task, only: %i(edit update show destroy)
+  before_action :logged_in_user
+  before_action :correct_user
 
   def index
     @tasks = @user.tasks
@@ -54,4 +56,5 @@ class TasksController < ApplicationController
     def set_task
       @task = @user.tasks.find_by(id: params[:id])
     end
+    
 end
