@@ -23,7 +23,7 @@
               <label class="label label-success">一般</label>
             <% end %>
           </td>
-          <td>
+          <td class = "text-right">
             <% if current_user.admin? && !current_user?(user) %>
               <%= link_to "削除", user, method: :delete,
                   data: { confirm: "#{user.name}のデータを削除してよろしいですか？" },
