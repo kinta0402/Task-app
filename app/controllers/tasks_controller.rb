@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   before_action :correct_user
 
   def index
-    @tasks = @user.tasks
+    @tasks = @user.tasks.order(created_at: "DESC")
   end
   
   def new
