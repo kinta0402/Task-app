@@ -10,6 +10,10 @@ class UsersController < ApplicationController
   end
 
   def new
+    if logged_in? && !current_user.admin?
+      flash[:info] = "既にログインしています。"
+      redirect_to current_user
+    end
     @user = User.new
   end
   
@@ -61,5 +65,6 @@ class UsersController < ApplicationController
     #システム管理権限所有かどうか判定します。
     def admin_user
       redirect_to root_url unless current_user.admin?
+      flash[:danger] = "権限がありません。"
     end
 end
