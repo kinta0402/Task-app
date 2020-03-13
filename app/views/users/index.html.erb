@@ -17,6 +17,11 @@
         <tr>
           <td>
             <%= link_to user.name, user %>
+            <% if user.admin? %>
+              <label class="label label-primary">管理者</label>
+            <% else %>
+              <label class="label label-success">一般</label>
+            <% end %>
           </td>
           <td>
             <% if current_user.admin? && !current_user?(user) %>
