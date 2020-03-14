@@ -54,7 +54,10 @@ class TasksController < ApplicationController
     end
     
     def set_task
-      @task = @user.tasks.find_by(id: params[:id])
+      unless @task = @user.tasks.find_by(id: params[:id])
+        flash[:danger] = "権限がありません。"
+        redirect_to user_tasks_url @task
+      end
     end
     
 end
